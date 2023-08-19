@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles.css">
+    <title>MyToDo</title>
+</head>
+<body>
+    <div class="Menu_container">
+        <div class="Tasks_List">
+            <button button type="button" onclick="location.href='/Tasks_List'">Tasks List</button>    
+        </div>
+        <div class="search">
+            <form action="/search" method="get"> 
+                <input type="submit" value="Search">
+                <input type="text" name="query" autofocus>
+            </form>
+        </div>
+    </div>
+    <div class="Header_container">
+        <div class="Header">MyToDo Today</div>
+        <div class="Today_date">{{ day }}/{{ month }}/{{ year }}</div>
+    </div>
+    <div class="tasks">
+        <div class="headlines">
+            <div class="category">Category</div>
+            <div class="description">Description</div>
+        </div>
+        {% for task in tasks %}
+            <div class="task">
+                <div class="category"> {{ task.category }}</div>
+                <div class="description"> {{ task.description }}</div>
+                <div class="delete"><a href="/delete?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">delete</a></div>
+                <div class="to_update"><a href="/to_update?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">update</a></div>
+            </div>    
+        {% endfor %}
+    </div>
+    <div class="add">
+        <form action="/add" method="get">
+            <input type="text" name="category" placeholder="category" autofocus>
+            <input type="text" name="description" placeholder="description">
+            <input type="date" name="date" placeholder="date">
+            <input type="submit" value="Add">
+        </form>
+    </div>
+</body>
+</html>

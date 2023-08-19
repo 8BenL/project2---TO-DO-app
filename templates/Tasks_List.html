@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static\styles.css">
+    <title>Tasks List</title>
+</head>
+<body>
+    <div class="back">
+        <button type="button" onclick="location.href='/'">MyToDo Today</button>
+    </div>
+    <div class="Header">My Tasks List</div>
+    <div class="tasks">
+        <div class="headlines">
+            <div class="date">Date</div>
+            <div class="category">Category</div>
+            <div class="description">Description</div>
+        </div>
+        {% for task in tasks %}
+            <div class="task">
+                <div class="date"> {{ task.date }}</div>
+                <div class="category"> {{ task.category }}</div>
+                <div class="description"> {{ task.description }}</div>              
+                <div class="delete"><a href="/delete?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">delete</a></div>
+                <div class="to_update"><a href="/to_update?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">update</a></div>
+            </div>    
+        {% endfor %}
+    </div>
+</body>
+</html>
