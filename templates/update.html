@@ -7,17 +7,16 @@
     <title>Update</title>
 </head>
 <body>
-    <div class="Header">Update a Task</div>
-    <div class="update">
-        <form action="/update" method="get">
-            <input type="text" name="category" placeholder = "{{ category }}" autofocus>
-            <input type="text" name="description" placeholder = "{{ description }}">
-            <input type="date" name="date" placeholder= "{{ date }}">
-            <input type="submit" value="Update">
-        </form>
-    </div>
-    <div class="back">
-        <button type="button" onclick="location.href='/'">MyToDo Today</button>
+    <div class="update_header">Update a Task</div>
+    <div class="add_container"> 
+        <div class="update">
+            <form action="/update" method="get">
+                <input type="text" name="category" placeholder = "{{ category }}" autofocus>
+                <input type="text" name="description" placeholder = "{{ description }}">
+                <input type="date" name="date" placeholder= "{{ date }}">
+                <input type="submit" value="Update">
+            </form>
+        </div>
     </div>
 </body>
 </html>

@@ -7,8 +7,16 @@
     <title>Tasks List</title>
 </head>
 <body>
-    <div class="back">
-        <button type="button" onclick="location.href='/'">MyToDo Today</button>
+    <div class="Menu_container">
+        <div class="back_home">
+            <button type="button" onclick="location.href='/'">MyToDo Today</button>
+        </div>
+        <div class="search">
+            <form action="/search" method="get"> 
+                <input type="submit" value="Search">
+                <input type="text" name="query" autofocus>
+            </form>
+        </div>
     </div>
     <div class="Header">My Tasks List</div>
     <div class="tasks">
@@ -26,6 +34,9 @@
                 <div class="to_update"><a href="/to_update?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">update</a></div>
             </div>    
         {% endfor %}
+    </div>
+    <div class="Back_to_Top">
+        <div><a href="#Top">Back to Top</a></div>
     </div>
 </body>
 </html>

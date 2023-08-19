@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="Header_container">
-        <div class="Header">MyToDo Today</div>
+        <div class="main_Header">MyToDo Today</div>
         <div class="Today_date">{{ day }}/{{ month }}/{{ year }}</div>
     </div>
     <div class="tasks">
@@ -36,13 +36,20 @@
             </div>    
         {% endfor %}
     </div>
-    <div class="add">
-        <form action="/add" method="get">
-            <input type="text" name="category" placeholder="category" autofocus>
-            <input type="text" name="description" placeholder="description">
-            <input type="date" name="date" placeholder="date">
-            <input type="submit" value="Add">
-        </form>
+    <div class="add_container">
+        <div class="add">
+            <form action="/add" method="get">Add a Task:  
+                <input type="text" name="category" placeholder="category" autofocus>
+
+
+                <input type="text" name="description" placeholder="description">
+                <input type="date" name="date" placeholder="date">
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    </div>
+    <div class="Back_to_Top">
+        <div><a href="#Top">Back to Top</a></div>
     </div>
 </body>
 </html>

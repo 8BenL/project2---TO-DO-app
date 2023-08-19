@@ -32,8 +32,8 @@ def get_objects():
         tasks = query_db("SELECT * FROM tasks")
         objects_list = []
         for task in tasks:
-             task = Task(task[0], task[1], task[2])                                  
-             objects_list.append(task)
+            task = Task(task[0], task[1], task[2])
+            objects_list.append(task)
         return objects_list
              
 
@@ -51,24 +51,8 @@ def save(tasks_list:list):
     for task in tasks_list:
         query_db(f"INSERT INTO tasks VALUES ('{task.category}','{task.description}','{task.date}')")
         
-        
-    '''tasks = get_objects()
-        task = Task(category="category", description="description", date=date)
-        dates = []
-        for task in tasks:
-            dates.append(task.date)
-        dates.sort'''
-    
 
-'''def tasks_list():
-    dicts_list = get_dicts()
-    tasks = []
-    for task in tasks:
-        if task['date'] < str(date.today()):
-            tasks.append(task)
-    return tasks'''
-
-    
+print(get_objects())
 
 
 
