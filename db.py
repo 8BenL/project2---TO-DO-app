@@ -52,7 +52,6 @@ def save(tasks_list:list):
         query_db(f"INSERT INTO tasks VALUES ('{task.category}','{task.description}','{task.date}')")
         
 
-print(get_objects())
 
 
 

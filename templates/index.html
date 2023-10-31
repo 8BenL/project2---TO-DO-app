@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="Menu_container">
-        <div class="Tasks_List">
+        <div class="back_home">
             <button button type="button" onclick="location.href='/Tasks_List'">Tasks List</button>    
         </div>
         <div class="search">
@@ -22,34 +22,39 @@
         <div class="main_Header">MyToDo Today</div>
         <div class="Today_date">{{ day }}/{{ month }}/{{ year }}</div>
     </div>
+<!-- טבלת משימות יומיות -->
     <div class="tasks">
         <div class="headlines">
             <div class="category">Category</div>
             <div class="description">Description</div>
         </div>
-        {% for task in tasks %}
+        {% for task in sorted_list %}
             <div class="task">
                 <div class="category"> {{ task.category }}</div>
                 <div class="description"> {{ task.description }}</div>
-                <div class="delete"><a href="/delete?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">delete</a></div>
-                <div class="to_update"><a href="/to_update?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">update</a></div>
-            </div>    
+            </div>
         {% endfor %}
     </div>
-    <div class="add_container">
-        <div class="add">
-            <form action="/add" method="get">Add a Task:  
-                <input type="text" name="category" placeholder="category" autofocus>
-
-
-                <input type="text" name="description" placeholder="description">
-                <input type="date" name="date" placeholder="date">
-                <input type="submit" value="Add">
-            </form>
-        </div>
-    </div>
-    <div class="Back_to_Top">
-        <div><a href="#Top">Back to Top</a></div>
+    <div class="add_container"><h1>Add a Task:</h1>
+        <form class="add" action="/add" method="get">
+            <div class="category">Category:
+            <select name="category" class="cat">
+                <option value="Home">Home</option>
+                <option value="Work">Work</option>
+                <option value="Health">Health</option>
+                <option value="Car">Car</option>
+                <option value="General">General</option>
+            </select>
+            </div> 
+            <div class="description">Description:
+                <input type="text" name="description" placeholder = "Description" class="des">
+            </div>
+            <div class="date">Date:
+                <input type="date" name="date" class="dat">
+            </div>
+            <div class="submit"><input type="submit" value="Add">
+            </div>
+        </form>
     </div>
 </body>
 </html>

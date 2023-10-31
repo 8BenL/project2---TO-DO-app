@@ -5,37 +5,23 @@
 
 html, body{
   font-family: "main";
-  color: rgb(71, 92, 174);
+  color: salmon;
+  background-color:dimgrey;
 }
-
 
 .Menu_container {
   display: flex;
   gap: 2%;
   margin: 2%;
-  background-color: rgb(242, 241, 236);
+  background-color:lightgray;
   margin-top: 2%;
 }
-
 
 .back_home {
   margin-left: 5%;
   padding-top: 1%;
   padding-bottom: 1%;
 }
-
-
-.back_home.button {
-  color: goldenrod;
-}
-
-.Tasks_List {
-  gap: 2%;
-  margin-left: 5%;
-  padding-top: 1%;
-  padding-bottom: 1%;
-}
-
 
 .search {
   gap: 2%;
@@ -44,32 +30,17 @@ html, body{
   padding-bottom: 1%;
 }
 
-
 .Header_container {
   display: flex;
   margin-top: 4%;
 } 
 
-
+/* MyToDo Today */
 .main_Header {
   text-align:center;
   font-size: 240%;
   margin-left: 38%;
 }
-
-
-.Header {
-  text-align:center;
-  font-size: 260%;
-}
-
-
-.update_header {
-  text-align:center;
-  font-size: 260%;
-  margin-top: 10%;
-}
-
 
 .Today_date {
   text-align:center;
@@ -77,16 +48,26 @@ html, body{
   margin-left: 15%;
 }
 
+/* My Task List */
+.Header {
+  text-align:center;
+  font-size: 260%;
+}
+
+.update_header {
+  text-align:center;
+  font-size: 260%;
+  margin-top: 10%;
+}
 
 .tasks {
   text-align: center;
   justify-content: center;
-  background-color: rgb(242, 241, 236);
+  background-color:lightgray;
   padding: 1%;
   margin-top: 1%;
   margin-left: 2%;
   margin-right: 2%;
-
 }
 
 .headlines {
@@ -94,56 +75,94 @@ html, body{
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   padding: 1%;
   font-size:x-large;
+  font-weight: 600;
 }
 
 
 .task {
+  background-color: rgb(242, 241, 236);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  padding: 1%;
+  padding: 0.5%;
   font-size: large;
+  margin-top: 0.5%;
 }
 
 
 .category {
+  display: flex;
+  text-align: center;
+  margin-left: 10%;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
- 
+
+
+.cat {
+  margin-left: 2%;
+}
 
 .description {
+  display: flex;
+  text-align: center;
+  margin-left: 30%;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
  
 
-.date {
-  text-align: left;
+.des {
+  margin-left: 2%;
 }
 
+.date {
+  text-align: center;
+  display: flex;
+  margin-left: 30%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+
+.dat {
+  margin-left: 2%;
+}
+
+.submit {
+  text-align: center;
+  margin-left: 20%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
 
 .delete {
   display: inline-block;
-  margin-left: 80%;
-  background-color: rgb(243, 131, 131);
-  border: solid;
-
+  margin-left: 120%;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
-
 
 .to_update {
   display: inline-block;
   margin-left: 80%;
-  background-color: rgb(176, 201, 177);
-  border: solid;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
 
 
 .add_container {
+  text-align: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 2%;
+  display: flex;
   margin: 2%;
   background-color: rgb(242, 241, 236);
   margin-top: 4%;
+  padding-left: 1%;
 }
 
-
 .add {
+  display: flex;
   text-align: center;
   padding-top: 1%;
   font-size: large;
@@ -159,18 +178,11 @@ html, body{
 }
  
 
-.Back_to_Top {
+.back_to_top {
   display: inline-block;
   margin-left: 43%;
-  background-color: rgb(176, 201, 177);
+  background-color: rgb(130, 168, 131);
   font-weight: bold;
   font-size: large;
   border: solid;
-  margin-top: 2%;
-
-
 }
-
-
-
-

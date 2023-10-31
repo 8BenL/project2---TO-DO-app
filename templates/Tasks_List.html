@@ -25,18 +25,20 @@
             <div class="category">Category</div>
             <div class="description">Description</div>
         </div>
-        {% for task in tasks %}
+        {% for task in sorted_list %}
             <div class="task">
                 <div class="date"> {{ task.date }}</div>
                 <div class="category"> {{ task.category }}</div>
                 <div class="description"> {{ task.description }}</div>              
-                <div class="delete"><a href="/delete?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">delete</a></div>
-                <div class="to_update"><a href="/to_update?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">update</a></div>
-            </div>    
+                <div><button class="delete"><a href="/delete?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">Delete</a></button></div>
+                <div><button class="to_update"><a href="/to_update?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">Update</a></button></div>
+            </div>
         {% endfor %}
     </div>
-    <div class="Back_to_Top">
-        <div><a href="#Top">Back to Top</a></div>
+    <div>
+        <button class="back_to_top">
+            <a href="#Top">Back to Top</a>
+        </button>
     </div>
 </body>
 </html>
