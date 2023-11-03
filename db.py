@@ -49,7 +49,8 @@ def load():
 def save(tasks_list:list):
     query_db(f"DELETE FROM tasks")
     for task in tasks_list:
-        query_db(f"INSERT INTO tasks VALUES ('{task.category}','{task.description}','{task.date}')")
+        if task.date >= str(date.today()):
+            query_db(f"INSERT INTO tasks VALUES ('{task.category}','{task.description}','{task.date}')")
         
 
 
