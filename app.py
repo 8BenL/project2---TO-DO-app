@@ -2,37 +2,41 @@ from flask import Flask, session, render_template, redirect, url_for, request
 app = Flask(__name__)
 import db
 import functions
-from datetime import date
+from datetime import timedelta
 import datetime
 
 app.secret_key = "sekflbskgvjd"
+app.permanent_session_lifetime = timedelta(days=11)
 
 @app.route('/')
 def home():
     if session.get("user_id", "")=="":
         return render_template("login.html")
-    return redirect(f"/today/{session['user_id']}")
+    return redirect("/today")
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
     username=request.form["username"]
     password=request.form["password"]
     if db.login(username, password):
         user_id=db.get_user_id(username)
-        session["user_id"]=db.get_user_id(username)
-        return redirect(f"/today/{user_id}")
+        session.permanent = True
+        session["user_id"]=user_id
+        return redirect("/today")
     else:
         return render_template("login.html")
 
-@app.route('/today/<user_id>')
-def today(user_id=0):
-    if session["user_id"]!=int(user_id):
-        return logout() 
-    today=datetime.date.today()
-    today_tasks=db.load(user_id)
-    sorted_list = sorted(today_tasks, key=lambda d: d['category'])
-    return render_template("today.html", sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
-
+@app.route('/today')
+def today():
+    if "user_id" in session:
+        user_id = session['user_id']
+        today=datetime.date.today()
+        today_tasks=db.load(user_id)
+        sorted_list = sorted(today_tasks, key=lambda d: d['category'])
+        return render_template("today.html", sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
+    else:
+         return render_template("login.html")
+    
 @app.route('/sign_up', methods=['GET','POST'])
 def sign_up():
     if request.method == 'POST':
@@ -46,24 +50,28 @@ def to_sign_up():
     return render_template("sign_up.html")
 
 @app.route('/logout')
-def logout(user_id=0):
-    session["user_id"]=user_id
-    tasks = db.get_objects(user_id)
-    db.save(tasks)
-    session.pop('user_id', None)
-    return redirect(url_for('home'))
+def logout():
+    if "user_id" in session:
+        user_id = session['user_id']
+        tasks = db.get_objects(user_id)
+        db.save(tasks)
+        session.pop('user_id', None)
+        return render_template("login.html")
 
 @app.route('/add')
-def add(user_id=0):
-    session["user_id"]=user_id
-    category = request.args["category"]
-    description = request.args["description"]
-    date = request.args["date"]
-    functions.add(user_id=user_id, category=category, description=description, date=date)
-    today=datetime.date.today()
-    today_tasks=db.load(user_id)
-    sorted_list = sorted(today_tasks, key=lambda d: d['category'])
-    return render_template("today.html", sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
+def add():
+    if "user_id" in session:
+        user_id = session['user_id']
+        category = request.args["category"]
+        description = request.args["description"]
+        date = request.args["date"]
+        functions.add(user_id=user_id, category=category, description=description, date=date)
+        today=datetime.date.today()
+        today_tasks=db.load(user_id)
+        sorted_list = sorted(today_tasks, key=lambda d: d['category'])
+        return render_template("today.html", sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
+    else:
+        return render_template("login.html")
 
 @app.route('/delete')
 def delete(user_id):
@@ -99,15 +107,18 @@ def search():
     return render_template("Tasks_List.html", sorted_list=results)
 
 @app.route('/Tasks_List')
-def tasks_list(user_id=0):
-    session["user_id"]=user_id
-    tasks = db.get_dicts(user_id)
-    new_tasks = []
-    for task in tasks:
-        if task['date'] >= str(datetime.date.today()):
-            new_tasks.append(task)
-    sorted_list = sorted(new_tasks, key=lambda elem: "%s %s" % (elem['date'], elem['category']))
-    return render_template("Tasks_List.html", sorted_list=sorted_list)
+def tasks_list():
+    if "user_id" in session:
+        user_id = session['user_id']
+        tasks = db.get_dicts(user_id)
+        new_tasks = []
+        for task in tasks:
+            if task['date'] >= str(datetime.date.today()):
+                new_tasks.append(task)
+        sorted_list = sorted(new_tasks, key=lambda elem: "%s %s" % (elem['date'], elem['category']))
+        return render_template("Tasks_List.html", sorted_list=sorted_list)
+    else:
+        return render_template("login.html")
         
 
 if __name__ == '__main__':

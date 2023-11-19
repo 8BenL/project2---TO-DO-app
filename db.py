@@ -26,7 +26,7 @@ def users_list():
         objects_list.append(user)
     return objects_list
 
-def get_dicts(user_id=0):
+def get_dicts(user_id):
     tasks = query_db(f"SELECT * FROM tasks WHERE user_id='{user_id}'")
     keys = ["id", "user_id", "category", "description", "date"]
     tasks_list = []
@@ -36,15 +36,15 @@ def get_dicts(user_id=0):
         tasks_list.append(dict_row)
     return tasks_list
 
-def get_objects(user_id=0):
-        tasks = query_db(f"SELECT * FROM tasks WHERE user_id='{user_id}'")
-        objects_list = []
-        for task in tasks:
-            task = classes.Task(task[1],task[2],task[3],task[4])
-            objects_list.append(task)
-        return objects_list
+def get_objects(user_id):
+    tasks = query_db(f"SELECT * FROM tasks WHERE user_id='{user_id}'")
+    objects_list = []
+    for task in tasks:
+        task = classes.Task(task[1],task[2],task[3],task[4])
+        objects_list.append(task)
+    return objects_list
              
-def load(user_id=0):
+def load(user_id):
     tasks = get_dicts(user_id)
     today_tasks = []
     for task in tasks:
@@ -56,7 +56,7 @@ def save(tasks_list:list):
     query_db(f"DELETE FROM tasks")
     for task in tasks_list:
         if task.date >= str(date.today()):
-            query_db(f"INSERT INTO tasks(user_id ,category, description, date) VALUES('{task.user_id}','{task.category}','{task.description}','{task.date}')")
+            query_db(f"INSERT INTO tasks(user_id, category, description, date) VALUES('{task.user_id}','{task.category}','{task.description}','{task.date}')")
 
 def save_user(users_list:list):
     query_db(f"DELETE FROM users")

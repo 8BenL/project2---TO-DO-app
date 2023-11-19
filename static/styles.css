@@ -25,7 +25,14 @@ html, body{
 
 .search {
   gap: 2%;
-  margin-left: 65%;
+  margin-left: 50%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.logout {
+  gap: 2%;
+  margin-left: 10%;
   padding-top: 1%;
   padding-bottom: 1%;
 }

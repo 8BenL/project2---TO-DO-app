@@ -6,15 +6,14 @@ import db
 def add(user_id:int='user_id', category:str='category', description:str='description', date:date=date):
     tasks_list = db.get_objects(user_id)
     task = classes.Task(user_id=user_id, category=category, description=description, date=date)
-    new_tasks_list = tasks_list.append(task)
-    db.save(new_tasks_list)
+    tasks_list.append(task)
+    db.save(tasks_list)
 
 def sign_up(username:str='username', password:int='password'):
     new_user = classes.User(username=username, password=password)
     users_list = db.users_list()
     users_list.append(new_user)
     db.save_user(users_list)
-
 
 def delete(user_id:int='user_id', category:str='category', description:str='description', date:date=date):
     tasks_list = db.get_objects(user_id)

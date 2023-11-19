@@ -8,13 +8,17 @@
 </head>
 <body>
     <div class="update_header">Login</div>
-    <form action="/login" method="post">
-        <input type="text" name="username" placeholder="username">
-        <input type="password" name="password" placeholder="password">
-        <input type="submit" value="login">
-    </form>
+    <div class="update"> 
+        <form action="/login" method="post">
+            <input type="text" name="username" placeholder="username">
+            <br><br>
+            <input type="password" name="password" placeholder="password">
+            <br><br>
+            <input type="submit" value="login">
+        </form>
+    </div>
     <br><br><br>
-    <div class="sign up">
+    <div class="update">
         <button button type="button" onclick="location.href='/to_sign_up'">sign up</button>    
     </div>
 </body>
