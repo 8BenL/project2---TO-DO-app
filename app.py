@@ -46,8 +46,8 @@ def to_sign_up():
     return render_template("sign_up.html")
 
 @app.route('/logout')
-def logout():
-    user_id=session["user_id"]
+def logout(user_id=0):
+    session["user_id"]=user_id
     tasks = db.get_objects(user_id)
     db.save(tasks)
     session.pop('user_id', None)
@@ -55,7 +55,7 @@ def logout():
 
 @app.route('/add')
 def add(user_id=0):
-    user_id=session["user_id"]
+    session["user_id"]=user_id
     category = request.args["category"]
     description = request.args["description"]
     date = request.args["date"]
@@ -67,7 +67,7 @@ def add(user_id=0):
 
 @app.route('/delete')
 def delete(user_id):
-    user_id=session["user_id"]
+    session["user_id"]=user_id
     category = request.args["category"]
     description = request.args["description"]
     date = request.args["date"]
@@ -76,7 +76,7 @@ def delete(user_id):
 
 @app.route('/update')
 def update(user_id):
-    user_id=session["user_id"]
+    session["user_id"]=user_id
     category = request.args["category"]
     description = request.args["description"]
     date = request.args["date"]
@@ -85,7 +85,7 @@ def update(user_id):
 
 @app.route('/to_update')
 def to_update(user_id):
-    user_id=session["user_id"]
+    session["user_id"]=user_id
     category = request.args["category"]
     description = request.args["description"]
     date = request.args["date"]
@@ -100,7 +100,7 @@ def search():
 
 @app.route('/Tasks_List')
 def tasks_list(user_id=0):
-    user_id=session["user_id"]
+    session["user_id"]=user_id
     tasks = db.get_dicts(user_id)
     new_tasks = []
     for task in tasks:
