@@ -4,10 +4,8 @@ import db
 
 
 def add(user_id:int='user_id', category:str='category', description:str='description', date:date=date):
-    tasks_list = db.get_objects(user_id)
     task = classes.Task(user_id=user_id, category=category, description=description, date=date)
-    tasks_list.append(task)
-    db.save(tasks_list)
+    db.save_add(task)
 
 def sign_up(username:str='username', password:int='password'):
     new_user = classes.User(username=username, password=password)
@@ -16,39 +14,22 @@ def sign_up(username:str='username', password:int='password'):
     db.save_user(users_list)
 
 def delete(user_id:int='user_id', category:str='category', description:str='description', date:date=date):
-    tasks_list = db.get_objects(user_id)
     task = classes.Task(user_id=user_id, category=category, description=description, date=date)
-    for task in tasks_list:
-        if task.category == category and task.description == description and task.date == date:
-            tasks_list.remove(task)
-    db.save(tasks_list)
-    return tasks_list
-
+    db.save_delete(task)
 
 def to_update(user_id:int='user_id', category:str='category', description:str='description', date:date=date):
-    tasks_list = db.get_objects(user_id)
     task = classes.Task(user_id=user_id, category=category, description=description, date=date)
-    for task in tasks_list:
-        if task.category == category and task.description == description and task.date == date:
-            tasks_list.remove(task)
-    db.save(tasks_list)
-    return tasks_list
-
+    db.get_task_id(user_id=user_id, category=category, description=description, date=date)
 
 def update(user_id:int='user_id', category:str='category', description:str='description', date:date=date):
-    tasks_list = db.get_objects(user_id)
     task = classes.Task(user_id=user_id, category=category, description=description, date=date)
-    tasks_list.append(task)
-    db.save(tasks_list)
-    return tasks_list
-
-
+    db.save_new_update(task)
+   
 def search(user_id:int='user_id', query:str='query'):
-    tasks = db.get_objects(user_id)
+    tasks = db.get_dicts(user_id)
     results = []
     for task in tasks:
-        if query in task.category or query in task.description or query in task.date:
-            results.append(task)
+        if query in task["user_id"] or query in task["category"] or query in task["description"] or query in task["date"]:            results.append(task)
     return results
 
 

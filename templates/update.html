@@ -11,6 +11,7 @@
     <div class="add_container"> 
         <div class="update">
             <form action="/update" method="get">
+                <input type="hidden" name="id" value="{{ id }}">
                 <input type="text" name="category" placeholder = "{{ category }}" autofocus>
                 <input type="text" name="description" placeholder = "{{ description }}">
                 <input type="date" name="date" placeholder= "{{ date }}">

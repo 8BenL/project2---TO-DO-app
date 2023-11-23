@@ -5,8 +5,10 @@ import functions
 from datetime import timedelta
 import datetime
 
+
 app.secret_key = "sekflbskgvjd"
 app.permanent_session_lifetime = timedelta(days=11)
+
 
 @app.route('/')
 def home():
@@ -19,12 +21,13 @@ def login():
     username=request.form["username"]
     password=request.form["password"]
     if db.login(username, password):
-        user_id=db.get_user_id(username)
+        user_id=db.get_user_id(username,password)
         session.permanent = True
         session["user_id"]=user_id
         return redirect("/today")
     else:
         return render_template("login.html")
+
 
 @app.route('/today')
 def today():
@@ -53,9 +56,9 @@ def to_sign_up():
 def logout():
     if "user_id" in session:
         user_id = session['user_id']
-        tasks = db.get_objects(user_id)
-        db.save(tasks)
         session.pop('user_id', None)
+        return render_template("login.html")
+    else:
         return render_template("login.html")
 
 @app.route('/add')
@@ -74,31 +77,41 @@ def add():
         return render_template("login.html")
 
 @app.route('/delete')
-def delete(user_id):
-    session["user_id"]=user_id
-    category = request.args["category"]
-    description = request.args["description"]
-    date = request.args["date"]
-    functions.delete(user_id=user_id, category=category, description=description, date=date)
-    return redirect(f"/Tasks_List")
+def delete():
+    if "user_id" in session:
+        user_id = session['user_id']
+        category = request.args["category"]
+        description = request.args["description"]
+        date = request.args["date"]
+        functions.delete(user_id=user_id, category=category, description=description, date=date)
+        return redirect(f"/Tasks_List")
+    else:
+        return render_template("login.html")
 
 @app.route('/update')
-def update(user_id):
-    session["user_id"]=user_id
-    category = request.args["category"]
-    description = request.args["description"]
-    date = request.args["date"]
-    functions.update(user_id=user_id, category=category, description=description, date=date)
-    return redirect(f"/Tasks_List")
+def update():
+    if "user_id" in session:
+        user_id = session['user_id']
+        category = request.args["category"]
+        description = request.args["description"]
+        date = request.args["date"]
+        functions.update(user_id=user_id, category=category, description=description, date=date)
+        return redirect(f"/Tasks_List")
+    else:
+        return render_template("login.html")
+
 
 @app.route('/to_update')
-def to_update(user_id):
-    session["user_id"]=user_id
-    category = request.args["category"]
-    description = request.args["description"]
-    date = request.args["date"]
-    functions.to_update(user_id=user_id, category=category, description=description, date=date)
-    return render_template("update.html", category=category, description=description, date=date)
+def to_update():
+    if "user_id" in session:
+        user_id = session['user_id']
+        category = request.args["category"]
+        description = request.args["description"]
+        date = request.args["date"]
+        id = db.get_task_id(user_id, category, description, date)
+        return render_template("update.html", id=id, user_id=user_id, category=category, description=description, date=date)
+    else:
+        return render_template("login.html")
 
 @app.route('/search')
 def search():

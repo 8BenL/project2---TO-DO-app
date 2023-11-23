@@ -22,8 +22,8 @@ class User():
 
 
 class Task():
-    def __init__(self,user_id:int="user_id", category:str="category", description:str="description", date:date="date"):
-        self.id = id #int(random.random()*100)
+    def __init__(self, user_id:int="user_id", category:str="category", description:str="description", date:date="date"):
+        self.id = id
         self.user_id = user_id
         if isinstance(category, str) and len(category)>1:
             self.category = category

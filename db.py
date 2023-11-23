@@ -9,8 +9,8 @@ def query_db(sql):
         rows = cur.execute(sql).fetchall()
         return rows
        
-def get_user_id(username=""):
-    return query_db(f"SELECT user_id FROM users WHERE username='{username}'")[0][0]
+def get_user_id(username="", password=""):
+    return query_db(f"SELECT user_id FROM users WHERE username='{username}' AND password='{password}'")[0][0]
 
 def login(username="", password=""):
     sql=f"SELECT user_id FROM users WHERE username='{username}' AND password='{password}'"
@@ -56,15 +56,31 @@ def save(tasks_list:list):
     query_db(f"DELETE FROM tasks")
     for task in tasks_list:
         if task.date >= str(date.today()):
-            query_db(f"INSERT INTO tasks(user_id, category, description, date) VALUES('{task.user_id}','{task.category}','{task.description}','{task.date}')")
+            query_db(f"INSERT INTO tasks(user_id,category,description,date) VALUES('{task.user_id}','{task.category}','{task.description}','{task.date}')")
 
 def save_user(users_list:list):
     query_db(f"DELETE FROM users")
     for user in users_list:
-        query_db(f"INSERT INTO users(username, password) VALUES('{user.username}','{user.password}')")
+        query_db(f"INSERT INTO users(username,password) VALUES('{user.username}','{user.password}')")
 
-        
-        
+def get_task_id(user_id="",category="", description="", date=""):
+    return query_db(f"SELECT id FROM tasks WHERE description='{description}' AND user_id='{user_id}' AND category='{category}' AND date='{date}'")
 
+def save_add(task):
+    task = classes.Task(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
+    if task.date >= str(date.today()):
+        query_db(f"INSERT INTO tasks(user_id,category,description,date) VALUES('{task.user_id}','{task.category}','{task.description}','{task.date}')")
+
+def save_delete(task):
+    task = classes.Task(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
+    query_db(f"DELETE FROM tasks WHERE (user_id,category,description,date)=('{task.user_id}','{task.category}','{task.description}','{task.date}')")
+
+def save_new_update(task):
+    task = classes.Task(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
+    task_id=get_task_id(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
+    tasks=get_dicts(task.user_id)
+    for task in tasks:
+        if task_id == task['id']:
+            query_db(f"UPDATE tasks SET user_id='{task.user_id}', category='{task.category}', description='{task.description}', date='{task.date}'")
 
 
