@@ -9,7 +9,7 @@
 <body>
     <div class="Menu_container">
         <div class="back_home">
-            <button type="button" onclick="location.href='/today'">MyToDo Today</button>
+            <button type="button" onclick="location.href='/today'">ToDo Today</button>
         </div>
         <div class="search">
             <form action="/search" method="get"> 
@@ -17,8 +17,13 @@
                 <input type="text" name="query" autofocus>
             </form>
         </div>
+        <div class="logout">
+            <button button type="button" onclick="location.href='/logout'">LogOut</button>    
+        </div>
     </div>
-    <div class="Header">My Tasks List</div>
+    <div class="Header_container"></div>
+        <div class="username">{{ username }}</div>
+        <div class="Header">Tasks List</div>
     <div class="tasks">
         <div class="headlines">
             <div class="date">Date</div>

@@ -33,10 +33,11 @@ def login():
 def today():
     if "user_id" in session:
         user_id = session['user_id']
+        username = db.get_username(user_id)
         today=datetime.date.today()
         today_tasks=db.load(user_id)
         sorted_list = sorted(today_tasks, key=lambda d: d['category'])
-        return render_template("today.html", sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
+        return render_template("today.html", username=username, sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
     else:
          return render_template("login.html")
     
@@ -123,13 +124,14 @@ def search():
 def tasks_list():
     if "user_id" in session:
         user_id = session['user_id']
+        username = db.get_username(user_id)
         tasks = db.get_dicts(user_id)
         new_tasks = []
         for task in tasks:
             if task['date'] >= str(datetime.date.today()):
                 new_tasks.append(task)
         sorted_list = sorted(new_tasks, key=lambda elem: "%s %s" % (elem['date'], elem['category']))
-        return render_template("Tasks_List.html", sorted_list=sorted_list)
+        return render_template("Tasks_List.html", username=username, sorted_list=sorted_list)
     else:
         return render_template("login.html")
         

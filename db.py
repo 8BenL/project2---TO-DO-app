@@ -12,6 +12,9 @@ def query_db(sql):
 def get_user_id(username="", password=""):
     return query_db(f"SELECT user_id FROM users WHERE username='{username}' AND password='{password}'")[0][0]
 
+def get_username(user_id=""):
+    return query_db(f"SELECT username FROM users WHERE user_id='{user_id}'")[0][0]
+
 def login(username="", password=""):
     sql=f"SELECT user_id FROM users WHERE username='{username}' AND password='{password}'"
     if query_db(sql)==0:
