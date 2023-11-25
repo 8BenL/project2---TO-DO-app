@@ -76,6 +76,25 @@ def add():
     else:
         return render_template("login.html")
 
+@app.route('/add_Task_list')
+def add_Task_list():
+    if "user_id" in session:
+        user_id = session['user_id']
+        category = request.args["category"]
+        description = request.args["description"]
+        date = request.args["date"]
+        functions.add(user_id=user_id, category=category, description=description, date=date)
+        username = db.get_username(user_id)
+        tasks = db.get_dicts(user_id)
+        new_tasks = []
+        for task in tasks:
+            if task['date'] >= str(datetime.date.today()):
+                new_tasks.append(task)
+        sorted_list = sorted(new_tasks, key=lambda elem: "%s %s" % (elem['date'], elem['category']))
+        return render_template("Tasks_List.html", username=username, sorted_list=sorted_list)
+    else:
+        return render_template("login.html")
+
 @app.route('/delete')
 def delete():
     if "user_id" in session:
@@ -85,6 +104,21 @@ def delete():
         date = request.args["date"]
         functions.delete(user_id=user_id, category=category, description=description, date=date)
         return redirect(f"/Tasks_List")
+    else:
+        return render_template("login.html")
+
+@app.route('/delete_today')
+def delete_today():
+    if "user_id" in session:
+        user_id = session['user_id']
+        category = request.args["category"]
+        description = request.args["description"]
+        date = request.args["date"]
+        functions.delete(user_id=user_id, category=category, description=description, date=date)
+        today=datetime.date.today()
+        today_tasks=db.load(user_id)
+        sorted_list = sorted(today_tasks, key=lambda d: d['category'])
+        return render_template("today.html", sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
     else:
         return render_template("login.html")
 

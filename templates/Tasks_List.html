@@ -40,6 +40,29 @@
         {% endfor %}
     </div>
     <br>
+    <div class="add_container">
+        <form class="add" action="/add_Task_list" method="get">
+            <h2>Add a Task:</h2>
+            <div class="add_category">Category:
+                <select name="category">
+                    <option value="Home">Home</option>
+                    <option value="Work">Work</option>
+                    <option value="Health">Health</option>
+                    <option value="Car">Car</option>
+                    <option value="General">General</option>
+                </select>
+            </div> 
+            <div class="add_description">Description:
+                <input type="text" name="description" placeholder = "Description">
+            </div>
+            <div class="add_date">Date:
+                <input type="date" name="date">
+            </div>
+            <div class="add_submit">
+                <input type="submit" value="Add">
+            </div>
+        </form>
+    </div>
     <div>
         <button class="back_to_top">
             <a href="#Top">Back to Top</a>

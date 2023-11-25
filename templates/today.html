@@ -14,7 +14,7 @@
         <form action="/search" method="get" class="search"> 
             <input type="submit" value="Search">
             <input type="text" name="query" autofocus>
-        </form>
+            </form>
         <div class="logout">
             <button button type="button" onclick="location.href='/logout'">LogOut</button>    
         </div>
@@ -34,27 +34,29 @@
             <div class="task">
                 <div class="category"> {{ task.category }}</div>
                 <div class="description"> {{ task.description }}</div>
+                <div><button class="delete"><a href="/delete_today?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">Delete</a></button></div>
             </div>
         {% endfor %}
     </div>
-    <div class="add_container"><h1>Add a Task:</h1>
+    <div class="add_container">
         <form class="add" action="/add" method="get">
-            <div class="category">Category:
-            <select name="category">
-                <option value="Home">Home</option>
-                <option value="Work">Work</option>
-                <option value="Health">Health</option>
-                <option value="Car">Car</option>
-                <option value="General">General</option>
-            </select>
+            <h2>Add a Task:</h2>
+            <div class="add_category">Category:
+                <select name="category">
+                    <option value="Home">Home</option>
+                    <option value="Work">Work</option>
+                    <option value="Health">Health</option>
+                    <option value="Car">Car</option>
+                    <option value="General">General</option>
+                </select>
             </div> 
-            <div class="description">Description:
+            <div class="add_description">Description:
                 <input type="text" name="description" placeholder = "Description">
             </div>
-            <div class="date">Date:
+            <div class="add_date">Date:
                 <input type="date" name="date">
             </div>
-            <div class="submit">
+            <div class="add_submit">
                 <input type="submit" value="Add">
             </div>
         </form>
