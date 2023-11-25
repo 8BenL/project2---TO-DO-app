@@ -7,19 +7,18 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="update_header">Login</div>
-    <div class="update"> 
-        <form action="/login" method="post">
+    <div class="signup_button">
+        <button button type="button" onclick="location.href='/to_sign_up'">Sign Up</button>    
+    </div>
+    <div class="login_header">Login</div>
+        <form action="/login" method="post" class="login">
             <input type="text" name="username" placeholder="username">
             <br><br>
             <input type="password" name="password" placeholder="password">
             <br><br>
-            <input type="submit" value="login">
+            <input type="submit" value="Login">
         </form>
     </div>
     <br><br><br>
-    <div class="update">
-        <button button type="button" onclick="location.href='/to_sign_up'">sign up</button>    
-    </div>
 </body>
 </html>

@@ -28,7 +28,6 @@ def login():
     else:
         return render_template("login.html")
 
-
 @app.route('/today')
 def today():
     if "user_id" in session:
@@ -116,9 +115,13 @@ def to_update():
 
 @app.route('/search')
 def search():
-    query = request.args["query"]
-    results = functions.search(query=query)
-    return render_template("Tasks_List.html", sorted_list=results)
+     if "user_id" in session:
+        user_id = session['user_id']
+        query = request.args["query"]
+        results = functions.search(user_id=user_id, query=query)
+        return render_template("Tasks_List.html", sorted_list=results)
+     else:
+        return render_template("login.html")
 
 @app.route('/Tasks_List')
 def tasks_list():

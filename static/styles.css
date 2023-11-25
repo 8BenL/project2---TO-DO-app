@@ -10,17 +10,24 @@ html, body{
 }
 
 .Menu_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   display: flex;
   gap: 2%;
   margin: 2%;
   background-color:lightgray;
-  margin-top: 2%;
 }
 
 .back_home {
-  margin-left: 5%;
+  gap: 2%;
+  margin-left: 2%;
   padding-top: 1%;
   padding-bottom: 1%;
+}
+
+.back_home > button{
+  color: salmon;
+  font-size: large;
 }
 
 .search {
@@ -30,6 +37,11 @@ html, body{
   padding-bottom: 1%;
 }
 
+.search > input{
+  color: salmon;
+  font-size: large;
+}
+
 .logout {
   gap: 2%;
   margin-left: 10%;
@@ -37,10 +49,20 @@ html, body{
   padding-bottom: 1%;
 }
 
+.logout > button{
+  color: salmon;
+  font-size: large;
+}
+
 .Header_container {
   display: flex;
   margin-top: 2%;
+  margin-bottom: 2%;
 } 
+
+.Header_container > div {
+  display: flex;
+}
 
 /* MyToDo Today */
 .username {
@@ -62,9 +84,9 @@ html, body{
 
 /* My Task List */
 .Header {
-  margin-right: 40%;
   text-align:center;
   font-size: 260%;
+  margin-left: 25%;
 }
 
 .update_header {
@@ -91,7 +113,6 @@ html, body{
   font-weight: 600;
 }
 
-
 .task {
   background-color: rgb(242, 241, 236);
   display: grid;
@@ -101,6 +122,9 @@ html, body{
   margin-top: 0.5%;
 }
 
+.task:nth-child(even){
+  background-color: antiquewhite;
+}
 
 .category {
   display: flex;
@@ -110,22 +134,12 @@ html, body{
   margin-bottom: 3%;
 }
 
-
-.cat {
-  margin-left: 2%;
-}
-
 .description {
   display: flex;
   text-align: center;
   margin-left: 30%;
   margin-top: 3%;
   margin-bottom: 3%;
-}
- 
-
-.des {
-  margin-left: 2%;
 }
 
 .date {
@@ -134,11 +148,6 @@ html, body{
   margin-left: 30%;
   margin-top: 3%;
   margin-bottom: 3%;
-}
-
-
-.dat {
-  margin-left: 2%;
 }
 
 .submit {
@@ -181,20 +190,49 @@ html, body{
   padding-bottom: 1%;
 }
  
-
 .update {
   text-align: center;
   padding-top: 1%;
   font-size: large;
   padding-bottom: 1%;
+  justify-content: center;
+}
+
+.update1 > input {
+  padding-top: 1%;
+  font-size: large;
+  padding-bottom: 1%;
 }
  
+.signup_button {
+  margin-top: 1.5%;
+  margin-left: 1%;
+}
+
+.signup_button > button {
+  font-size: x-large;
+  color: salmon;
+}
+
+.login_header {
+  text-align:center;
+  font-size: 350%;
+  margin-top: 5%;
+}
+
+.login {
+  text-align:center;
+  padding-top: 1%;
+  font-size: xx-large;
+}
+
+.login > input {
+  font-size: x-large;
+  color: salmon;
+}
 
 .back_to_top {
-  display: inline-block;
-  margin-left: 43%;
-  background-color: rgb(130, 168, 131);
-  font-weight: bold;
+  color: salmon;
   font-size: large;
-  border: solid;
+  margin-left: 45%;
 }

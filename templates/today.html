@@ -11,12 +11,10 @@
         <div class="back_home">
             <button button type="button" onclick="location.href='/Tasks_List'">Tasks List</button>    
         </div>
-        <div class="search">
-            <form action="/search" method="get"> 
-                <input type="submit" value="Search">
-                <input type="text" name="query" autofocus>
-            </form>
-        </div>
+        <form action="/search" method="get" class="search"> 
+            <input type="submit" value="Search">
+            <input type="text" name="query" autofocus>
+        </form>
         <div class="logout">
             <button button type="button" onclick="location.href='/logout'">LogOut</button>    
         </div>
@@ -42,7 +40,7 @@
     <div class="add_container"><h1>Add a Task:</h1>
         <form class="add" action="/add" method="get">
             <div class="category">Category:
-            <select name="category" class="cat">
+            <select name="category">
                 <option value="Home">Home</option>
                 <option value="Work">Work</option>
                 <option value="Health">Health</option>
@@ -51,12 +49,13 @@
             </select>
             </div> 
             <div class="description">Description:
-                <input type="text" name="description" placeholder = "Description" class="des">
+                <input type="text" name="description" placeholder = "Description">
             </div>
             <div class="date">Date:
-                <input type="date" name="date" class="dat">
+                <input type="date" name="date">
             </div>
-            <div class="submit"><input type="submit" value="Add">
+            <div class="submit">
+                <input type="submit" value="Add">
             </div>
         </form>
     </div>

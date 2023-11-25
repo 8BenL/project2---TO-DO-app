@@ -25,11 +25,12 @@ def update(user_id:int='user_id', category:str='category', description:str='desc
     task = classes.Task(user_id=user_id, category=category, description=description, date=date)
     db.save_new_update(task)
    
-def search(user_id:int='user_id', query:str='query'):
-    tasks = db.get_dicts(user_id)
+def search(user_id, query):
+    tasks = db.get_objects(user_id)
     results = []
     for task in tasks:
-        if query in task["user_id"] or query in task["category"] or query in task["description"] or query in task["date"]:            results.append(task)
+        if query in task.category or query in task.description or query in task.date:
+            results.append(task)
     return results
 
 

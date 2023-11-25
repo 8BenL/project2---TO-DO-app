@@ -11,19 +11,18 @@
         <div class="back_home">
             <button type="button" onclick="location.href='/today'">ToDo Today</button>
         </div>
-        <div class="search">
-            <form action="/search" method="get"> 
-                <input type="submit" value="Search">
-                <input type="text" name="query" autofocus>
-            </form>
-        </div>
+        <form action="/search" method="get" class="search"> 
+            <input type="submit" value="Search">
+            <input type="text" name="query" autofocus>
+        </form>
         <div class="logout">
             <button button type="button" onclick="location.href='/logout'">LogOut</button>    
         </div>
     </div>
-    <div class="Header_container"></div>
+    <div class="Header_container">
         <div class="username">{{ username }}</div>
         <div class="Header">Tasks List</div>
+    </div>
     <div class="tasks">
         <div class="headlines">
             <div class="date">Date</div>
@@ -40,6 +39,7 @@
             </div>
         {% endfor %}
     </div>
+    <br>
     <div>
         <button class="back_to_top">
             <a href="#Top">Back to Top</a>
