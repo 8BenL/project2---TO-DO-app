@@ -58,7 +58,6 @@ def get_all_objects():
 
 def load(user_id):
     tasks = get_dicts(user_id)
-    delete_old()
     today_tasks = []
     for task in tasks:
         if task['date'] == str(date.today()):

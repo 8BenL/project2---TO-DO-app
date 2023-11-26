@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, redirect, url_for, request
+from flask import Flask, session, render_template, redirect, url_for, request, jsonify
 app = Flask(__name__)
 import db
 import functions
@@ -71,8 +71,9 @@ def add():
         functions.add(user_id=user_id, category=category, description=description, date=date)
         today=datetime.date.today()
         today_tasks=db.load(user_id)
+        username=db.get_username(user_id)
         sorted_list = sorted(today_tasks, key=lambda d: d['category'])
-        return render_template("today.html", sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
+        return render_template("today.html", username=username, sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
     else:
         return render_template("login.html")
 
@@ -117,8 +118,9 @@ def delete_today():
         functions.delete(user_id=user_id, category=category, description=description, date=date)
         today=datetime.date.today()
         today_tasks=db.load(user_id)
+        username=db.get_username(user_id)
         sorted_list = sorted(today_tasks, key=lambda d: d['category'])
-        return render_template("today.html", sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
+        return render_template("today.html", username=username, sorted_list=sorted_list, day=today.day, month=today.month, year=today.year)
     else:
         return render_template("login.html")
 
@@ -171,7 +173,13 @@ def tasks_list():
         return render_template("Tasks_List.html", username=username, sorted_list=sorted_list)
     else:
         return render_template("login.html")
-        
+    
+@app.route('/api/tasks_board', methods=['GET'])
+def tasks_board():
+      if "user_id" in session:
+        user_id = session['user_id']
+        return db.load(user_id)
+       
 
 if __name__ == '__main__':
     app.run(debug=True)
