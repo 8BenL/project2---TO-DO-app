@@ -1,9 +1,10 @@
-from flask import Flask, session, render_template, redirect, url_for, request, jsonify
+from flask import Flask, session, render_template, redirect, url_for, request
 app = Flask(__name__)
 import db
 import functions
 from datetime import timedelta
 import datetime
+import classes
 
 
 app.secret_key = "sekflbskgvjd"
@@ -18,16 +19,19 @@ def home():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    username=request.form["username"]
-    password=request.form["password"]
-    if db.login(username, password):
-        user_id=db.get_user_id(username,password)
+    username=request.form.get("username",None)
+    password=request.form.get("password",None)
+    if username is None or password is None:
+        return redirect("/logout")
+    if db.login(username=username, password=password):
+        user_id=db.get_user_id(username=username, password=password)
         session.permanent = True
-        session["user_id"]=user_id
+        session["user_id"] = user_id
         return redirect("/today")
     else:
-        return render_template("login.html")
+        return redirect('/logout')
 
+    
 @app.route('/today')
 def today():
     if "user_id" in session:
@@ -42,10 +46,14 @@ def today():
     
 @app.route('/sign_up', methods=['GET','POST'])
 def sign_up():
-    if request.method == 'POST':
-        username=request.form["username"]
-        password=request.form["password"]
-        functions.sign_up(username, password)
+    username=request.form.get('username',None)
+    password=request.form.get('password',None)
+    if username is None or password is None:
+        return render_template("sign_up.html")
+    users_list = db.users_list()
+    new_user = classes.User(username=username, password=password)     
+    users_list.append(new_user)
+    db.save_user(users_list)
     return render_template("login.html") 
 
 @app.route('/to_sign_up')
@@ -55,11 +63,10 @@ def to_sign_up():
 @app.route('/logout')
 def logout():
     if "user_id" in session:
-        user_id = session['user_id']
         session.pop('user_id', None)
-        return render_template("login.html")
+        return redirect("/")
     else:
-        return render_template("login.html")
+        return redirect("/")
 
 @app.route('/add')
 def add():
@@ -124,28 +131,35 @@ def delete_today():
     else:
         return render_template("login.html")
 
-@app.route('/update')
-def update():
+@app.route('/update/<id>')
+def update(id: str):
     if "user_id" in session:
         user_id = session['user_id']
         category = request.args["category"]
         description = request.args["description"]
         date = request.args["date"]
-        functions.update(user_id=user_id, category=category, description=description, date=date)
+        updated = functions.update(task_id=id, user_id=user_id, category=category, description=description, date=date)
+        print(updated)
         return redirect(f"/Tasks_List")
     else:
         return render_template("login.html")
 
 
+@app.route('/completed_today/<task_id>/')
+def completed_today(task_id: int):
+    completed = request.args["completed"]
+    functions.toggle_task(task_id=task_id, completed=completed)
+    return redirect("/today")
+
 @app.route('/to_update')
 def to_update():
     if "user_id" in session:
+        task_id = request.args['id']
         user_id = session['user_id']
         category = request.args["category"]
         description = request.args["description"]
         date = request.args["date"]
-        id = db.get_task_id(user_id, category, description, date)
-        return render_template("update.html", id=id, user_id=user_id, category=category, description=description, date=date)
+        return render_template("update.html", id=task_id, user_id=user_id, category=category, description=description, date=date)
     else:
         return render_template("login.html")
 
@@ -173,14 +187,18 @@ def tasks_list():
         return render_template("Tasks_List.html", username=username, sorted_list=sorted_list)
     else:
         return render_template("login.html")
-    
+
 @app.route('/api/tasks_board', methods=['GET'])
 def tasks_board():
       if "user_id" in session:
         user_id = session['user_id']
-        return db.load(user_id)
+        return list(filter(lambda task_dict: task_dict['completed'] == 0 , db.load(user_id)))
        
-
+@app.route('/api/sign_up', methods=['GET'])
+def users_list():
+        return db.users_list()        
+        
 if __name__ == '__main__':
     app.run(debug=True)
+    
 

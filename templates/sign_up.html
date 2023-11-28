@@ -5,17 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/styles.css">
     <title>sign up</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
+    <script type="text/babel" src="/static/sign_up.js"></script>
     <div class="signup_button">
         <button button type="button" onclick="location.href='/'">Login</button>    
     </div>
     <div class="login_header">Sign Up</div>
         <form action="/sign_up" method="post" class="login">
-            <input type="text" name="username" placeholder="username">
+            <input type="text" name="username" id="myInput" placeholder="username">
             <br><br>
             <input type="password" name="password" placeholder="password">
-            <br><br>
+            <br>
+            <div class="sign_up" id="sign_up"></div>
+            <br>
             <input type="submit" value="Sign Up">
         </form>
     <br><br><br>

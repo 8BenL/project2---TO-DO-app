@@ -17,7 +17,7 @@ def get_username(user_id=""):
 
 def login(username="", password=""):
     sql=f"SELECT user_id FROM users WHERE username='{username}' AND password='{password}'"
-    if query_db(sql)==0:
+    if len(query_db(sql))==0:
         return False
     return True
 
@@ -31,7 +31,7 @@ def users_list():
 
 def get_dicts(user_id):
     tasks = query_db(f"SELECT * FROM tasks WHERE user_id='{user_id}'")
-    keys = ["id", "user_id", "category", "description", "date"]
+    keys = ["id", "user_id", "category", "description", "date", "completed"]
     tasks_list = []
     for task in tasks:
         values = list(task)
@@ -43,7 +43,7 @@ def get_objects(user_id):
     tasks = query_db(f"SELECT * FROM tasks WHERE user_id='{user_id}'")
     objects_list = []
     for task in tasks:
-        task = classes.Task(task[1],task[2],task[3],task[4])
+        task = classes.Task(task[1],task[2],task[3],task[4],completed=task[5])
         objects_list.append(task)
     return objects_list
              
@@ -51,7 +51,7 @@ def get_all_objects():
     tasks = query_db(f"SELECT * FROM tasks")
     objects_list = []
     for task in tasks:
-        task = classes.Task(task[1],task[2],task[3],task[4])
+        task = classes.Task(task[1],task[2],task[3],task[4],completed=task[5])
         objects_list.append(task)
     return objects_list
              
@@ -87,12 +87,20 @@ def save_delete(task):
     task = classes.Task(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
     query_db(f"DELETE FROM tasks WHERE (user_id,category,description,date)=('{task.user_id}','{task.category}','{task.description}','{task.date}')")
 
+
+def toggle_task(completed, task_id):
+    if completed == 1 or completed  == '1':
+        query_db(f"UPDATE tasks SET completed=0 WHERE id ={task_id}")
+    else:
+        query_db(f"UPDATE tasks SET completed=1 WHERE id ={task_id}")
+
 def save_new_update(task):
-    task = classes.Task(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
-    task_id=get_task_id(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
-    tasks=get_dicts(task.user_id)
-    for task in tasks:
-        if task_id == task['id']:
-            query_db(f"UPDATE tasks SET user_id='{task.user_id}', category='{task.category}', description='{task.description}', date='{task.date}'")
+    #task = classes.Task(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
+    #task_id=get_task_id(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
+    query_db(f"UPDATE tasks SET category='{task.category}', description='{task.description}', date='{task.date}' WHERE id ={task.id}")
+    #tasks=get_dicts(task.user_id)
+    #for task in tasks:
+     #   if task_id == task['id']:
+           # query_db(f"UPDATE tasks SET user_id='{task.user_id}', category='{task.category}', description='{task.description}', date='{task.date}'")
 
 

@@ -5,25 +5,19 @@ import db
 
 def add(user_id:int='user_id', category:str='category', description:str='description', date:date=date):
     task = classes.Task(user_id=user_id, category=category, description=description, date=date)
-    db.save_add(task)
-
-def sign_up(username:str='username', password:int='password'):
-    new_user = classes.User(username=username, password=password)
-    users_list = db.users_list()
-    users_list.append(new_user)
-    db.save_user(users_list)
+    db.save_add(task)            
 
 def delete(user_id:int='user_id', category:str='category', description:str='description', date:date=date):
     task = classes.Task(user_id=user_id, category=category, description=description, date=date)
     db.save_delete(task)
 
-def to_update(user_id:int='user_id', category:str='category', description:str='description', date:date=date):
-    task = classes.Task(user_id=user_id, category=category, description=description, date=date)
-    db.get_task_id(user_id=user_id, category=category, description=description, date=date)
-
-def update(user_id:int='user_id', category:str='category', description:str='description', date:date=date):
-    task = classes.Task(user_id=user_id, category=category, description=description, date=date)
+def update(task_id:int, user_id:int='user_id', category:str='category', description:str='description', date:date=date):
+    task = classes.Task(id=task_id, user_id=user_id, category=category, description=description, date=date)
     db.save_new_update(task)
+    return task
+
+def toggle_task(task_id:int,completed:int):
+    db.toggle_task(task_id=task_id, completed=completed)
    
 def search(user_id, query):
     tasks = db.get_objects(user_id)

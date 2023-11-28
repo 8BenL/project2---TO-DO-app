@@ -34,8 +34,8 @@
                 <div class="date"> {{ task.date }}</div>
                 <div class="category"> {{ task.category }}</div>
                 <div class="description"> {{ task.description }}</div>                              
-                <div><button class="to_update"><a href="/to_update?id={{task.id}}&category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">Update</a></button></div>
-                <div><button class="delete"><a href="/delete?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">Delete</a></button></div>
+                <div><button class="completed btn-tasks"><a href="/to_update?id={{task.id}}&category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">Update</a></button></div>
+                <div><button class="delete btn-tasks"><a href="/delete?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">Delete</a></button></div>
             </div>
         {% endfor %}
     </div>

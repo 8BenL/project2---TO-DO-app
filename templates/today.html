@@ -11,7 +11,7 @@
     <script crossorigin src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <script type="text/babel" src="/static/api.js"></script>
+    <script type="text/babel" src="/static/today.js"></script>
     <div class="Menu_container">
         <div class="back_home">
             <button button type="button" onclick="location.href='/Tasks_List'">Tasks List</button>    
@@ -26,7 +26,7 @@
     </div>
     <div class="Header_container">
         <div class="username">{{ username }}</div>
-        <div class="tasks_board" id="root"></div>
+        <div class="tasks_board" id="tasks_board"></div>
         <div class="main_Header">ToDo Today</div>
         <div class="Today_date">{{ day }}/{{ month }}/{{ year }}</div>
     </div>
@@ -37,11 +37,17 @@
             <div class="description">Description</div>
         </div>
         {% for task in sorted_list %}
-            <div class="task">
+            <div class="task_today">
                 <div class="category"> {{ task.category }}</div>
                 <div class="description"> {{ task.description }}</div>
-                <div><button class="completed"><a href="/completed_today?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">Completed</a></button></div>
-                <div><button class="delete"><a href="/delete_today?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">Delete</a></button></div>
+                <div><button class="completed btn-tasks"><a href="/completed_today/{{task.id}}/?completed={{task.completed}}">
+                    {% if task.completed == 1 %}
+                        Completed
+                    {% else %}
+                        Not Completed
+                    {% endif %}
+                </a></button></div>
+                <div><button class="delete btn-tasks1"><a href="/delete_today?category={{ task.category }}&description={{ task.description }}&date={{ task.date }}">Delete</a></button></div>
             </div>
         {% endfor %}
     </div>

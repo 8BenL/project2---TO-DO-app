@@ -11,7 +11,7 @@ function TaskBoard(){
 }
 
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<TaskBoard/>);
+const tasks_board = ReactDOM.createRoot(document.getElementById("tasks_board"));
+tasks_board.render(<TaskBoard/>);
 
 

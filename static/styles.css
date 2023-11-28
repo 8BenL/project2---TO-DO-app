@@ -43,7 +43,7 @@ html, body{
 
 .logout {
   gap: 2%;
-  margin-left: 10%;
+  margin-left: 9%;
   padding-top: 1%;
   padding-bottom: 1%;
 }
@@ -135,10 +135,28 @@ html, body{
   margin-bottom: 1%;
 }
 
+.task_today {
+  background-color: rgb(242, 241, 236);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 0.5%;
+  font-size: x-large;
+  margin-top: 0.5%;
+}
+
+.task_today > div{
+  font-size: x-large;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
 .task:nth-child(even){
   background-color: antiquewhite;
 }
 
+.task_today:nth-child(even){
+  background-color: antiquewhite;
+}
 .add_container {
   font-size: large;
   margin: 2%;
@@ -196,6 +214,24 @@ html, body{
   color: salmon;
 }
 
+.btn-tasks {
+  padding:8px;
+  background: salmon;
+  border:1px solid lightgray;
+}
+
+button >a {
+  color:white;
+  text-decoration: none;
+}
+
+.btn-tasks1 {
+  padding:8px;
+  background: salmon;
+  border:1px solid lightgray;
+  margin-left: 50%;
+}
+
 .login_header {
   text-align:center;
   font-size: 350%;
@@ -214,7 +250,8 @@ html, body{
 }
 
 .back_to_top {
-  color: salmon;
-  font-size: large;
+  padding:8px;
+  background: salmon;
+  border:1px solid lightgray;
   margin-left: 45%;
 }
