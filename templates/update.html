@@ -7,18 +7,31 @@
     <title>Update</title>
 </head>
 <body>
-    <div class="update_header">Update a Task</div>
-    <div class="add_container"> 
-        <div class="update">
-            {{id}}
-            {{category}}
-            <form action="/update/{{ id }}" method="get" class="update1">
-                <input type="text" name="category" placeholder = "{{ category }}" autofocus>
+    <div class="back_home">
+        <button type="button" onclick="location.href='/today'">ToDo Today</button>
+    </div>
+    <div class="add_container" style="margin-top: 10%;">
+        <form action="/update/{{ id }}" method="get" class="add">
+            <h2>Update a Task:</h2>
+            <div class="add_category">Category:
+                <select name="category" placeholder = "{{ category }}">
+                    <option value="Home">Home</option>
+                    <option value="Work">Work</option>
+                    <option value="Health">Health</option>
+                    <option value="Car">Car</option>
+                    <option value="General">General</option>
+                </select>
+            </div> 
+            <div class="add_description">Description:
                 <input type="text" name="description" placeholder = "{{ description }}">
+            </div>
+            <div class="add_date">Date:
                 <input type="date" name="date" placeholder= "{{ date }}">
-                <input type="submit" value="Update">
-            </form>
-        </div>
+            </div>
+            <div class="add_submit">
+                <input type="submit" value="Add">
+            </div>
+        </form>
     </div>
 </body>
 </html>

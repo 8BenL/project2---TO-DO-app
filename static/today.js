@@ -10,7 +10,6 @@ function TaskBoard(){
     return <div>Tasks<br/>{tasksNum}</div>   
 }
 
-
 const tasks_board = ReactDOM.createRoot(document.getElementById("tasks_board"));
 tasks_board.render(<TaskBoard/>);
 

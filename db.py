@@ -55,7 +55,6 @@ def get_all_objects():
         objects_list.append(task)
     return objects_list
              
-
 def load(user_id):
     tasks = get_dicts(user_id)
     today_tasks = []
@@ -87,7 +86,6 @@ def save_delete(task):
     task = classes.Task(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
     query_db(f"DELETE FROM tasks WHERE (user_id,category,description,date)=('{task.user_id}','{task.category}','{task.description}','{task.date}')")
 
-
 def toggle_task(completed, task_id):
     if completed == 1 or completed  == '1':
         query_db(f"UPDATE tasks SET completed=0 WHERE id ={task_id}")
@@ -95,12 +93,6 @@ def toggle_task(completed, task_id):
         query_db(f"UPDATE tasks SET completed=1 WHERE id ={task_id}")
 
 def save_new_update(task):
-    #task = classes.Task(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
-    #task_id=get_task_id(user_id=task.user_id, category=task.category, description=task.description, date=task.date)
     query_db(f"UPDATE tasks SET category='{task.category}', description='{task.description}', date='{task.date}' WHERE id ={task.id}")
-    #tasks=get_dicts(task.user_id)
-    #for task in tasks:
-     #   if task_id == task['id']:
-           # query_db(f"UPDATE tasks SET user_id='{task.user_id}', category='{task.category}', description='{task.description}', date='{task.date}'")
-
+   
 
