@@ -194,6 +194,12 @@ def tasks_board():
         user_id = session['user_id']
         return list(filter(lambda task_dict: task_dict['completed'] == 0 , db.load(user_id)))
        
+@app.route('/api/completed_board', methods=['GET'])
+def completed_board():
+      if "user_id" in session:
+        user_id = session['user_id']
+        return list(filter(lambda task_dict: task_dict['completed'] == 1 , db.load(user_id)))
+
 @app.route('/api/sign_up', methods=['GET'])
 def users_list():
         return db.users_list()        

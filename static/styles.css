@@ -55,7 +55,7 @@ html, body{
 
 .Header_container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   display: flex;
 } 
 
@@ -75,17 +75,26 @@ html, body{
   margin-left: 6%;
 }
 
+.completed_board{
+  color: lightgray;
+  background-color: rgb(48, 195, 87);
+  text-align: center;
+  font-size: 160%;
+  padding: 0.3%;
+  margin-left: 6%;
+}
+
 .main_Header {
   padding: 1%;
   text-align:center;
   font-size: 240%;
-  margin-left: 20%;}
+  margin-left: 10%;}
 
 .Today_date {
   padding: 1%;
   text-align:center;
   font-size: 260%;
-  margin-left: 15%;
+  margin-left: 10%;
 }
 
 /* My Task List */
